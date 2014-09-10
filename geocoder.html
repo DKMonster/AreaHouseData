@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<title>Google Maps Geocoder</title>
+
+		<!-- Bootstrap RWD -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+
+		<link rel="stylesheet" href="css/flickerplate.css">
+
+		<link rel="stylesheet" href="css/animation.css">
+		<link rel="stylesheet" href="css/fontello.css">
+
+		<!-- Base CSS -->
+		<link rel="stylesheet" href="css/geocoder.css">
+	</head>
+	<body>
+		<!-- Start Website -->
+
+		<div class="example col-sm-12">
+			
+			<div class="before col-sm-6">
+				<p class="text-danger">JSON Example Before</p>
+				<pre>
+{
+  "2004": [
+    {
+      "地址": "台北市中正區羅斯福路四段1 - 50號10樓",
+      "坪數": "33.00 ",
+      "價格(元)": "33,000  ",
+      "格局": "2房 1廳 2衛",
+      "電梯": "有",
+      "屋齡": ""
+    },
+    {
+      "地址": "台北市中正區羅斯福路四段1 - 50號12樓",
+      "坪數": "29.00 ",
+      "價格(元)": "27,000  ",
+      "格局": "2房 2廳 2衛",
+      "電梯": "有",
+      "屋齡": ""
+    }
+  ]
+}
+				</pre>
+			</div>
+			<div class="after col-sm-6">
+				<p class="text-info">JSON Example After</p>
+				<pre>
+{
+  "2004": [
+    {
+      "地址": "台北市中正區羅斯福路四段1 - 50號10樓",
+      "坪數": "33.00 ",
+      "價格(元)": "33,000  ",
+      "格局": "2房 1廳 2衛",
+      "電梯": "有",
+      "屋齡": "",
+      <i class="text-danger">"Lat": "25.012808",</i>
+      <i class="text-danger">"Lng": "121.53585699999996"</i>
+    },
+    {
+      "地址": "台北市中正區羅斯福路四段1 - 50號12樓",
+      "坪數": "29.00 ",
+      "價格(元)": "27,000  ",
+      "格局": "2房 2廳 2衛",
+      "電梯": "有",
+      "屋齡": "",
+      <i class="text-danger">"Lat": "25.012808",</i>
+      <i class="text-danger">"Lng": "121.53585699999996"</i>
+    }
+  ]
+}
+				</pre>
+			</div>
+		</div>
+
+		<form class="form-horizontal Jsonfile" role="form">
+			<div class="form-group col-sm-12">
+				<label for="inputJSON" class="col-sm-4 control-label">檔案名稱</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" id="inputJSON" placeholder="Filename">
+				</div>
+				<button type="button" id="loading-example-btn" data-loading-text="Loading..." class="btn btn-primary col-sm-2">轉換</button>
+			</div>
+		</form>
+
+
+		<!-- Bootstrap JS -->
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/modernizr-custom-v2.7.1.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+
+		<script src="js/jquery-finger-v0.1.0.js"></script>
+		<script src="js/flickerplate.js"></script>
+		<script src="js/jsonselect.js"></script>
+
+		<script src="js/geocoder.js"></script>
+	</body>
+</html>

@@ -247,28 +247,54 @@ a {
 
 /* ----------- var ----------- */
 /* ----------- base setting ----------- */
-/* line 12, ../fire.app/sass/index.sass */
+/* line 12, ../fire.app/sass/geocoder.sass */
 * {
   margin: 0;
   padding: 0;
 }
 
-/* line 16, ../fire.app/sass/index.sass */
+/* line 16, ../fire.app/sass/geocoder.sass */
 a, a:hover, a:focus {
   color: black;
   background: none;
   text-decoration: none;
 }
 
-/* line 21, ../fire.app/sass/index.sass */
+/* line 21, ../fire.app/sass/geocoder.sass */
 li, ul {
   float: left;
   list-style: none;
 }
 
 /* ----------- start design ----------- */
-/* line 27, ../fire.app/sass/index.sass */
-.map_canvas {
+/* line 27, ../fire.app/sass/geocoder.sass */
+.example {
   width: 100%;
-  height: 100%;
+  height: 400px;
+}
+/* line 30, ../fire.app/sass/geocoder.sass */
+.example p {
+  text-align: center;
+  margin-bottom: 5px;
+}
+/* line 34, ../fire.app/sass/geocoder.sass */
+.example pre {
+  height: 420px;
+}
+
+/* line 37, ../fire.app/sass/geocoder.sass */
+.Jsonfile {
+  width: 350px;
+  height: 200px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+/* line 42, ../fire.app/sass/geocoder.sass */
+.Jsonfile .label {
+  font-size: 18px;
+  font-weight: bold;
+}
+/* line 46, ../fire.app/sass/geocoder.sass */
+.Jsonfile .form-group {
+  margin-top: 50px;
 }
