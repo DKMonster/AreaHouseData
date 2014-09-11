@@ -30,16 +30,23 @@ $(document).ready(function(){
 
 	var jsonFile;
 
-	$.ajax({
-		async: false,
-		dataType: "json",
-		url: 'json/1.json',
-		success: function(data){
-			jsonFile = data;
-		}
+	$('#json_btn').click(function(){
+		var btn = $(this);
+		jsonFile = $('#inputJSON').val();
+		btn.button('loading');
+
+		$.ajax({
+			async: false,
+			dataType: "json",
+			url: 'json/'+jsonFile+'.json',
+			success: function(data){
+				jsonFile = data;
+				console.log(search_area('."2004" ."地址"').length);
+				btn.button('reset');
+			}
+		});
 	});
 
-	console.log(search_area('."2004" ."地址"').length);
 
 	function search_area(selector){
 		var obj = JSONSelect.match(selector , jsonFile);
