@@ -32,7 +32,12 @@ $(document).ready(function(){
 
 	$('#json_btn').click(function(){
 		var btn = $(this);
+		var y_st = parseInt($('#yearStart').val());
+		var y_end = parseInt($('#yearEnd').val());
+		var y_num = y_end - y_st + 1;
+
 		jsonFile = $('#inputJSON').val();
+
 		btn.button('loading');
 
 		$.ajax({
@@ -41,7 +46,19 @@ $(document).ready(function(){
 			url: 'json/'+jsonFile+'.json',
 			success: function(data){
 				jsonFile = data;
-				console.log(search_area('."2004" ."地址"').length);
+				// for(var i = 0 ; i < y_num ; i++){
+				// 	// console.log(search_area('."'+(y_st + i)+'"'));
+				// 	// console.log(search_area('."'+(y_st + i)+'" ."地址"').length);
+				// 	for(var s = 0 ; s < search_area('."'+(y_st + i)+'" ."地址"').length ; s++){
+				// 		var num = s + 1;
+				// 		console.log(search_area('."'+(y_st + i)+'" :nth-child('+num+')'));
+				// 	}
+				// }
+
+				console.log(search_area('."2004" :nth-child(1) ."地址"')[0]);
+
+				geocodeAjax(search_area('."2004" :nth-child(1) ."地址"')[0]);
+
 				btn.button('reset');
 			}
 		});
@@ -51,6 +68,35 @@ $(document).ready(function(){
 	function search_area(selector){
 		var obj = JSONSelect.match(selector , jsonFile);
 		return obj
+	}
+
+	var geocoder = new google.maps.Geocoder();
+	var c = 0;
+	function geocodeAjax(addr) {
+		//利用Deferred物件協助非同步呼叫全部完成的時機
+		var def = new jQuery.Deferred();
+		//geocoder似乎有使用量管控，若快速連續呼叫會停止運作
+		//在此使用setTimeout節流，每次查詢間隔一秒鐘
+		setTimeout(function() {
+			//呼叫decode()，傳入參數及Callback函數
+			geocoder.geocode({
+				address: addr
+			}, function(results, status) {
+				//檢查執行結果
+				if (status == google.maps.GeocoderStatus.OK) {
+					var loc = results[0].geometry.location;
+					console.log(loc.lat());
+					console.log(loc.lng());
+					//呼叫Deferred.resolve()，表示執行成功
+					def.resolve();
+				} else {
+					//呼叫Deferred.reject()，表示執行失敗
+					def.reject();
+				}
+			});
+		}, c++ * 1000);
+		//傳回Promise物件，以協調非同步呼叫結果
+		return def.promise();
 	}
 
 });

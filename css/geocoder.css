@@ -270,7 +270,7 @@ li, ul {
 /* line 27, ../fire.app/sass/geocoder.sass */
 .example {
   width: 100%;
-  height: 400px;
+  height: 500px;
 }
 /* line 30, ../fire.app/sass/geocoder.sass */
 .example p {
@@ -293,8 +293,4 @@ li, ul {
 .Jsonfile .label {
   font-size: 18px;
   font-weight: bold;
-}
-/* line 46, ../fire.app/sass/geocoder.sass */
-.Jsonfile .form-group {
-  margin-top: 50px;
 }
