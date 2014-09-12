@@ -76,6 +76,10 @@ $(document).ready(function(){
 		});
 	});
 
+	$('#sae_btn').click(function(){
+		
+	});
+
 	var geocoder = new google.maps.Geocoder();
 	var c = 0;
 	function geocodeAjax(addr , year , s , now_load , total_load) {
