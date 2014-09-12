@@ -270,7 +270,7 @@ li, ul {
 /* line 27, ../fire.app/sass/geocoder.sass */
 .example {
   width: 100%;
-  height: 500px;
+  height: auto;
   margin-top: 20px;
 }
 /* line 31, ../fire.app/sass/geocoder.sass */
@@ -286,16 +286,28 @@ li, ul {
 /* line 38, ../fire.app/sass/geocoder.sass */
 .Jsonfile {
   width: 100%;
-  height: 200px;
+  height: auto;
+  margin-top: 20px;
 }
-/* line 41, ../fire.app/sass/geocoder.sass */
+/* line 42, ../fire.app/sass/geocoder.sass */
 .Jsonfile form {
-  width: 350px;
-  height: 200px;
-  margin: 0 auto;
+  padding: 30px;
 }
 /* line 45, ../fire.app/sass/geocoder.sass */
+.Jsonfile .text {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 30px;
+  text-indent: 30px;
+  padding: 30px;
+}
+/* line 52, ../fire.app/sass/geocoder.sass */
 .Jsonfile .label {
   font-size: 18px;
   font-weight: bold;
+}
+/* line 56, ../fire.app/sass/geocoder.sass */
+.Jsonfile #save_btn {
+  display: none;
+  margin-top: 20px;
 }

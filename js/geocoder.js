@@ -28,56 +28,83 @@
 
 $(document).ready(function(){
 
-	var jsonFile;
+	var jsonFile , FileName;
 	var lat , lng , mark , total_load = 0 , now_load = 0 , pro = 0;
 	var progress = $('.progress').find('num');
 	var progress_bar = $('.progress').find('.progress-bar');
 
 	$('#json_btn').click(function(){
 
-		jsonFile = $('#inputJSON').val();
+		FileName = $('#inputJSON').val();
 
-		var btn = $(this);
-		var y_st = parseInt($('#yearStart').val());
-		var y_end = parseInt($('#yearEnd').val());
-		var y_num = y_end - y_st + 1;
+		if(FileName != ""){
 
-		progress_bar.css({'width':'0%'});
-		progress_bar.attr('aria-valuenow','0%');
-		progress.html("0%");
+			$('#save_btn').fadeTo(1 , 1000);
 
-		btn.button('loading');
+			var btn = $(this);
+			var y_st = parseInt($('#yearStart').val());
+			var y_end = parseInt($('#yearEnd').val());
+			var y_num = y_end - y_st + 1;
 
-		$.ajax({
-			async: false,
-			dataType: "json",
-			url: 'json/'+jsonFile+'.json',
-			success: function(data){
-				jsonFile = data;
+			progress_bar.css({'width':'0%'});
+			progress_bar.attr('aria-valuenow','0%');
+			progress.html("0%");
 
-				$.each(jsonFile , function(year , object){
-					if(year <= y_end){
-						total_load += jsonFile[year].length;
-					}
-				});
+			btn.button('loading');
 
-				for(var i = 0 ; i < y_num ; i++){
-					var s = 0;
-					$.each(jsonFile[y_st+i] , function(){
-						now_load++;
-						// console.log(jsonFile[y_st+1][s]['地址']);
-						geocodeAjax(jsonFile[y_st+i][s]['地址'] , y_st+i , s , now_load , total_load);
-						s++;
+			$.ajax({
+				async: false,
+				dataType: "json",
+				url: 'json/'+FileName+'.json',
+				success: function(data){
+					jsonFile = data;
+
+					$.each(jsonFile , function(year , object){
+						if(year <= y_end){
+							total_load += jsonFile[year].length;
+						}
 					});
+
+					for(var i = 0 ; i < y_num ; i++){
+						var s = 0;
+						$.each(jsonFile[y_st+i] , function(){
+							now_load++;
+							// console.log(jsonFile[y_st+1][s]['地址']);
+							geocodeAjax(jsonFile[y_st+i][s]['地址'] , y_st+i , s , now_load , total_load);
+							s++;
+						});
+					}
+
+					btn.button('reset');
 				}
 
-				btn.button('reset');
-			}
-		});
+			});
+		}
 	});
 
-	$('#sae_btn').click(function(){
-		
+	$('#save_btn').click(function(){
+
+		FileName = $('#inputJSON').val();
+
+		if(FileName != ""){
+
+			console.log(jsonFile);
+
+			$.ajax({
+				async: false,
+				url: 'php/geocoder.php',
+				type: "POST",
+				data: {
+					"file": FileName,
+					"json": escape(jsonFile)
+				},
+				success: function(data){
+					console.log("檔案：" + FileName + ".json 儲存完成！");
+				}
+			});
+
+		}
+
 	});
 
 	var geocoder = new google.maps.Geocoder();
@@ -105,7 +132,7 @@ $(document).ready(function(){
 					progress_bar.css({'width':pro +'%'});
 					progress_bar.attr('aria-valuenow',pro +'%');
 					progress.html(pro);
-					console.log(now_load);
+					console.log(now_load + "/" + total_load);
 					// console.log(jsonFile[year][s]);
 					// console.log(jsonFile[year][s]);
 					//呼叫Deferred.resolve()，表示執行成功
