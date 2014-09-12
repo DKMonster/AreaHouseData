@@ -29,10 +29,6 @@
 $(document).ready(function(){
 
 	var jsonFile;
-	var btn = $(this);
-	var y_st = parseInt($('#yearStart').val());
-	var y_end = parseInt($('#yearEnd').val());
-	var y_num = y_end - y_st + 1;
 	var lat , lng , mark , total_load = 0 , now_load = 0 , pro = 0;
 	var progress = $('.progress').find('num');
 	var progress_bar = $('.progress').find('.progress-bar');
@@ -40,6 +36,11 @@ $(document).ready(function(){
 	$('#json_btn').click(function(){
 
 		jsonFile = $('#inputJSON').val();
+
+		var btn = $(this);
+		var y_st = parseInt($('#yearStart').val());
+		var y_end = parseInt($('#yearEnd').val());
+		var y_num = y_end - y_st + 1;
 
 		progress_bar.css({'width':'0%'});
 		progress_bar.attr('aria-valuenow','0%');
@@ -53,9 +54,13 @@ $(document).ready(function(){
 			url: 'json/'+jsonFile+'.json',
 			success: function(data){
 				jsonFile = data;
+
 				$.each(jsonFile , function(year , object){
-					total_load += jsonFile[year].length;
+					if(year <= y_end){
+						total_load += jsonFile[year].length;
+					}
 				});
+
 				for(var i = 0 ; i < y_num ; i++){
 					var s = 0;
 					$.each(jsonFile[y_st+i] , function(){
@@ -96,6 +101,7 @@ $(document).ready(function(){
 					progress_bar.css({'width':pro +'%'});
 					progress_bar.attr('aria-valuenow',pro +'%');
 					progress.html(pro);
+					console.log(now_load);
 					// console.log(jsonFile[year][s]);
 					// console.log(jsonFile[year][s]);
 					//呼叫Deferred.resolve()，表示執行成功
@@ -109,11 +115,11 @@ $(document).ready(function(){
 		//傳回Promise物件，以協調非同步呼叫結果
 		return def.promise();
 
-
-
-				progress_bar.css({'width':'100%'});
-				progress_bar.attr('aria-valuenow','100%');
-				progress.html("100%");
+		def.done (function(){
+			progress_bar.css({'width':'100%'});
+			progress_bar.attr('aria-valuenow','100%');
+			progress.html("100%");
+		});
 	}
 
 });
